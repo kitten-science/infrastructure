@@ -1,10 +1,10 @@
-resource "aws_route53_record" "kitten_science_website" {
+resource "aws_route53_record" "this" {
   for_each = toset([ "A", "AAAA" ])
 
   alias {
     evaluate_target_health = true
-    name                   = aws_cloudfront_distribution.kitten_science_website.domain_name
-    zone_id                = aws_cloudfront_distribution.kitten_science_website.hosted_zone_id
+    name                   = aws_cloudfront_distribution.this.domain_name
+    zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
   }
 
   name    = var.domain_name

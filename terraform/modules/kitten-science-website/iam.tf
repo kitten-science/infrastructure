@@ -1,5 +1,5 @@
 # Maintainer Access
-data "aws_iam_policy_document" "kitten_science_maintainer_assume_role" {
+data "aws_iam_policy_document" "maintainer_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -29,27 +29,27 @@ data "aws_iam_policy_document" "kitten_science_maintainer_assume_role" {
     }
   }
 }
-resource "aws_iam_role" "kitten_science_maintainer" {
+resource "aws_iam_role" "maintainer" {
   name               = "${var.bucket_name}-maintainer"
-  assume_role_policy = data.aws_iam_policy_document.kitten_science_maintainer_assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.maintainer_assume_role.json
 }
 
-data "aws_iam_policy_document" "kitten_science_website_maintainer" {
+data "aws_iam_policy_document" "maintainer" {
   statement {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      aws_s3_bucket.kitten_science_website.arn,
-      "${aws_s3_bucket.kitten_science_website.arn}/*"
+      aws_s3_bucket.this.arn,
+      "${aws_s3_bucket.this.arn}/*"
     ]
   }
 }
-resource "aws_iam_policy" "kitten_science_website_maintainer" {
+resource "aws_iam_policy" "maintainer" {
   name        = "${var.bucket_name}-maintainer"
   description = "Allows changing the Kitten Science website."
-  policy      = data.aws_iam_policy_document.kitten_science_website_maintainer.json
+  policy      = data.aws_iam_policy_document.maintainer.json
 }
-resource "aws_iam_role_policy_attachment" "kitten_science_website_maintainer" {
-  role       = aws_iam_role.kitten_science_maintainer.name
-  policy_arn = aws_iam_policy.kitten_science_website_maintainer.arn
+resource "aws_iam_role_policy_attachment" "maintainer" {
+  role       = aws_iam_role.maintainer.name
+  policy_arn = aws_iam_policy.maintainer.arn
 }

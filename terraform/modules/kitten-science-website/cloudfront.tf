@@ -1,5 +1,5 @@
 # Certificate
-resource "aws_acm_certificate" "kitten_science_website" {
+resource "aws_acm_certificate" "this" {
   domain_name       = var.domain_name
   key_algorithm     = "EC_prime256v1"
   validation_method = "DNS"
@@ -10,9 +10,9 @@ resource "aws_acm_certificate" "kitten_science_website" {
 
   provider = aws.global
 }
-resource "aws_route53_record" "kitten_science_website_validation" {
+resource "aws_route53_record" "this_validation" {
   for_each = {
-    for dvo in aws_acm_certificate.kitten_science_website.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -28,16 +28,16 @@ resource "aws_route53_record" "kitten_science_website_validation" {
 
   provider = aws.global
 }
-resource "aws_acm_certificate_validation" "kitten_science_website" {
-  certificate_arn         = aws_acm_certificate.kitten_science_website.arn
-  validation_record_fqdns = [for record in aws_route53_record.kitten_science_website_validation : record.fqdn]
+resource "aws_acm_certificate_validation" "this" {
+  certificate_arn         = aws_acm_certificate.this.arn
+  validation_record_fqdns = [for record in aws_route53_record.this_validation : record.fqdn]
 
   provider = aws.global
 }
 
 # Distribution
-resource "aws_cloudfront_distribution" "kitten_science_website" {
-  depends_on = [aws_acm_certificate_validation.kitten_science_website]
+resource "aws_cloudfront_distribution" "this" {
+  depends_on = [aws_acm_certificate_validation.this]
 
   aliases = [var.domain_name]
 
@@ -45,8 +45,8 @@ resource "aws_cloudfront_distribution" "kitten_science_website" {
   is_ipv6_enabled = true
 
   origin {
-    domain_name = aws_s3_bucket_website_configuration.kitten_science_website.website_endpoint
-    origin_id   = aws_s3_bucket.kitten_science_website.bucket
+    domain_name = aws_s3_bucket_website_configuration.this.website_endpoint
+    origin_id   = aws_s3_bucket.this.bucket
     custom_origin_config {
       http_port              = 80
       https_port             = 443
@@ -58,7 +58,7 @@ resource "aws_cloudfront_distribution" "kitten_science_website" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.kitten_science_website.bucket
+    target_origin_id = aws_s3_bucket.this.bucket
 
     forwarded_values {
       query_string = false
@@ -81,7 +81,7 @@ resource "aws_cloudfront_distribution" "kitten_science_website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.kitten_science_website.arn
+    acm_certificate_arn      = aws_acm_certificate.this.arn
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
   }
