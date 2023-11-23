@@ -11,6 +11,9 @@ permissions:
 
 jobs:
   deploy:
+    environment:
+      name: Production
+      url: https://kitten-science.com
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -26,6 +29,6 @@ jobs:
         run: terraform init
         working-directory: terraform
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
         working-directory: terraform
