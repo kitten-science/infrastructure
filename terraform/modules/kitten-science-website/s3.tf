@@ -13,20 +13,33 @@ resource "aws_s3_bucket_ownership_controls" "this" {
 resource "aws_s3_bucket_public_access_block" "this" {
   bucket = aws_s3_bucket.this.id
 
-  block_public_acls       = false
+  block_public_acls       = true
   block_public_policy     = false
-  ignore_public_acls      = false
+  ignore_public_acls      = true
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_acl" "this" {
-  depends_on = [
-    aws_s3_bucket_ownership_controls.this,
-    aws_s3_bucket_public_access_block.this,
-  ]
+data "aws_iam_policy_document" "s3_public_read" {
+  statement {
+    principals {
+      type = "AWS"
+      identifiers = ["*"]
+    }
 
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      aws_s3_bucket.this.arn,
+      "${aws_s3_bucket.this.arn}/*",
+    ]
+  }
+}
+resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
-  acl    = "public-read"
+  policy = data.aws_iam_policy_document.s3_public_read.json
 }
 
 resource "aws_s3_bucket_website_configuration" "this" {
