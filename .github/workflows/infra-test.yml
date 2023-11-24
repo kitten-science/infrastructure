@@ -17,6 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
+      - name: Format Checkout
+        run: terraform fmt -check -diff -recursive terraform
+
+      - name: Run tflint
+        run: |
+          podman run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint --init
+          podman run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint --recursive
+
       - name: Environment Info
         run: |
           echo "ref: ${{ github.ref }}"

@@ -1,5 +1,5 @@
 resource "aws_route53_record" "this" {
-  for_each = toset([ "A", "AAAA" ])
+  for_each = toset(["A", "AAAA"])
 
   alias {
     evaluate_target_health = true
