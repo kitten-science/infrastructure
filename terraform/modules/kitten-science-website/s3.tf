@@ -22,7 +22,7 @@ resource "aws_s3_bucket_public_access_block" "this" {
 data "aws_iam_policy_document" "s3_public_read" {
   statement {
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
 

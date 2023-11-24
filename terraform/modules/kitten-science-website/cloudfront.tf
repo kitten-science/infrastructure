@@ -88,3 +88,35 @@ resource "aws_cloudfront_distribution" "this" {
 
   provider = aws.global
 }
+
+resource "aws_cloudfront_response_headers_policy" "this" {
+  name = var.domain_name
+
+  cors_config {
+    access_control_allow_credentials = false
+
+    access_control_allow_headers {
+      items = [
+        "Accept",
+        "Accept-Language",
+        "Content-Language",
+        "Content-Type",
+        "Range"
+      ]
+    }
+
+    access_control_allow_methods {
+      items = ["GET", "HEAD"]
+    }
+
+    access_control_allow_origins {
+      items = [
+        "https://kittensgame.com",
+        "http://127.0.0.1:8100",
+        "http://localhost:8100"
+      ]
+    }
+
+    origin_override = true
+  }
+}
