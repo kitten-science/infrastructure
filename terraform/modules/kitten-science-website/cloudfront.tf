@@ -44,6 +44,7 @@ resource "aws_cloudfront_distribution" "this" {
   depends_on = [aws_acm_certificate_validation.this]
 
   aliases = [var.domain_name]
+  comment = "Kitten Science"
 
   enabled         = true
   is_ipv6_enabled = true
@@ -97,6 +98,7 @@ resource "aws_cloudfront_distribution" "schema" {
   depends_on = [aws_acm_certificate_validation.this]
 
   aliases = ["schema.${var.domain_name}"]
+  comment = "Kitten Science Schemas"
 
   enabled         = true
   is_ipv6_enabled = true

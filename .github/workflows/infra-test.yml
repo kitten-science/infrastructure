@@ -40,5 +40,5 @@ jobs:
         working-directory: terraform
 
       - name: Terraform Plan
-        run: terraform plan -lock-timeout=5m
+        run: terraform plan -lock-timeout=20m
         working-directory: terraform

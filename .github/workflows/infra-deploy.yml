@@ -35,7 +35,7 @@ jobs:
         working-directory: terraform
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -lock-timeout=5m
+        run: terraform apply -auto-approve -lock-timeout=20m
         working-directory: terraform
 
       - name: Cancel Previous Runs
