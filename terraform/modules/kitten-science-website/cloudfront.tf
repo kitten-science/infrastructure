@@ -56,9 +56,10 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.this.bucket
+    allowed_methods            = ["GET", "HEAD", "OPTIONS"]
+    cached_methods             = ["GET", "HEAD"]
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
+    target_origin_id           = aws_s3_bucket.this.bucket
 
     forwarded_values {
       query_string = false
@@ -90,7 +91,7 @@ resource "aws_cloudfront_distribution" "this" {
 }
 
 resource "aws_cloudfront_response_headers_policy" "this" {
-  name = var.domain_name
+  name = var.bucket_name
 
   cors_config {
     access_control_allow_credentials = false
