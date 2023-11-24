@@ -62,9 +62,11 @@ resource "aws_cloudfront_distribution" "this" {
 
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
-    cached_methods             = ["GET", "HEAD"]
+    cached_methods             = ["GET", "HEAD", "OPTIONS"]
     response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
     target_origin_id           = aws_s3_bucket.this.bucket
+
+    compress = true
 
     forwarded_values {
       query_string = false
@@ -76,8 +78,8 @@ resource "aws_cloudfront_distribution" "this" {
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    default_ttl            = 86400
+    max_ttl                = 31536000
   }
 
   restrictions {
@@ -117,9 +119,11 @@ resource "aws_cloudfront_distribution" "schema" {
 
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
-    cached_methods             = ["GET", "HEAD"]
+    cached_methods             = ["GET", "HEAD", "OPTIONS"]
     response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
     target_origin_id           = aws_s3_bucket.this.bucket
+
+    compress = true
 
     forwarded_values {
       query_string = false
@@ -131,8 +135,8 @@ resource "aws_cloudfront_distribution" "schema" {
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    default_ttl            = 86400
+    max_ttl                = 31536000
   }
 
   restrictions {
