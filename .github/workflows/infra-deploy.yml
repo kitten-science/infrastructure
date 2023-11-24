@@ -10,7 +10,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: infra-deploy
+  group: infra-state
+  cancel-in-progress: false
 
 jobs:
   deploy:

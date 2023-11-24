@@ -10,6 +10,10 @@ permissions:
   contents: read
   id-token: write
 
+concurrency:
+  group: infra-state
+  cancel-in-progress: false
+
 jobs:
   qa:
     runs-on: ubuntu-22.04
