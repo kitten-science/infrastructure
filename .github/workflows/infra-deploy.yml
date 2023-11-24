@@ -10,6 +10,9 @@ permissions:
   contents: read
   id-token: write
 
+concurrency:
+  group: production
+
 jobs:
   deploy:
     environment:
