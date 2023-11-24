@@ -1,3 +1,3 @@
 # Kitten Science Infrastructure
 
-IaC for <kitten-science.com>.
+IaC for <https://kitten-science.com>.
