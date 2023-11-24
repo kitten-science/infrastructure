@@ -9,10 +9,6 @@ permissions:
   contents: read
   id-token: write
 
-concurrency:
-  group: infra-state
-  cancel-in-progress: false
-
 jobs:
   deploy:
     environment:
@@ -38,7 +34,7 @@ jobs:
         working-directory: terraform
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -lock-timeout=5m
         working-directory: terraform
 
       - name: Cancel Previous Runs
