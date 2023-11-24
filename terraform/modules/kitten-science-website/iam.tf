@@ -43,6 +43,14 @@ data "aws_iam_policy_document" "maintainer" {
       "${aws_s3_bucket.this.arn}/*"
     ]
   }
+  statement {
+    effect  = "Allow"
+    actions = ["cloudfront:*"]
+    resources = [
+      aws_cloudfront_distribution.schema.arn,
+      aws_cloudfront_distribution.this.arn
+    ]
+  }
 }
 resource "aws_iam_policy" "maintainer" {
   name        = "${var.bucket_name}-maintainer"
