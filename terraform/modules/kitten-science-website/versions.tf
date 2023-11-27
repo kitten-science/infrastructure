@@ -8,7 +8,7 @@ terraform {
         aws.global
       ]
       source  = "hashicorp/aws"
-      version = "5.26.0"
+      version = "5.27.0"
     }
   }
 }
