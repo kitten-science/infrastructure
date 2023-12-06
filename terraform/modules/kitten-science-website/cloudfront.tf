@@ -39,6 +39,13 @@ resource "aws_acm_certificate_validation" "this" {
   provider = aws.global
 }
 
+data "aws_cloudfront_cache_policy" "uncached" {
+  name = "Managed-CachingDisabled"
+}
+data "aws_cloudfront_origin_request_policy" "cors" {
+  name = "Managed-CORS-S3Origin"
+}
+
 # Distribution
 resource "aws_cloudfront_distribution" "this" {
   depends_on = [aws_acm_certificate_validation.this]
@@ -63,23 +70,17 @@ resource "aws_cloudfront_distribution" "this" {
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
     cached_methods             = ["GET", "HEAD", "OPTIONS"]
+    cache_policy_id            = data.aws_cloudfront_cache_policy.uncached.id
+    origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.cors.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
     target_origin_id           = aws_s3_bucket.this.bucket
 
     compress = true
 
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
-    default_ttl            = 86400
-    max_ttl                = 31536000
+    default_ttl            = 0
+    max_ttl                = 0
   }
 
   restrictions {
