@@ -16,3 +16,12 @@ resource "aws_route53_record" "github_validation" {
   type    = "TXT"
   zone_id = data.aws_route53_zone.kitten_science.id
 }
+# We validate with CNAME instead of TXT, because we don't want to litter
+# the TXT for the apex.
+resource "aws_route53_record" "google_validation" {
+  name    = "4cxdfxct3lp3"
+  records = ["gv-qjx2j6abkk3aej.dv.googlehosted.com"]
+  ttl     = 60
+  type    = "CNAME"
+  zone_id = data.aws_route53_zone.kitten_science.id
+}

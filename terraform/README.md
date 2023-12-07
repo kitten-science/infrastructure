@@ -25,6 +25,7 @@
 | Name | Type |
 |------|------|
 | [aws_route53_record.github_validation](https://registry.terraform.io/providers/hashicorp/aws/5.29.0/docs/resources/route53_record) | resource |
+| [aws_route53_record.google_validation](https://registry.terraform.io/providers/hashicorp/aws/5.29.0/docs/resources/route53_record) | resource |
 | [aws_route53_zone.kitten_science](https://registry.terraform.io/providers/hashicorp/aws/5.29.0/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
