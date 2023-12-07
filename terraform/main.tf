@@ -1,6 +1,6 @@
 module "kitten_science_website" {
   source      = "./modules/kitten-science-website"
-  bucket_name = "kitten-science-website"
+  bucket_name = "kitten-science-us0"
   domain_name = local.domain_name
 
   providers = {

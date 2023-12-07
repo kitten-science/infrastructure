@@ -1,6 +1,8 @@
 resource "aws_s3_bucket" "this" {
   bucket        = var.bucket_name
   force_destroy = true
+
+  provider = aws.global
 }
 
 resource "aws_s3_bucket_ownership_controls" "this" {
@@ -8,6 +10,8 @@ resource "aws_s3_bucket_ownership_controls" "this" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
+
+  provider = aws.global
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -17,6 +21,8 @@ resource "aws_s3_bucket_public_access_block" "this" {
   block_public_policy     = false
   ignore_public_acls      = true
   restrict_public_buckets = false
+
+  provider = aws.global
 }
 
 data "aws_iam_policy_document" "s3_public_read" {
@@ -36,10 +42,14 @@ data "aws_iam_policy_document" "s3_public_read" {
       "${aws_s3_bucket.this.arn}/*",
     ]
   }
+
+  provider = aws.global
 }
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
   policy = data.aws_iam_policy_document.s3_public_read.json
+
+  provider = aws.global
 }
 
 resource "aws_s3_bucket_website_configuration" "this" {
@@ -48,4 +58,6 @@ resource "aws_s3_bucket_website_configuration" "this" {
   index_document {
     suffix = "index.html"
   }
+
+  provider = aws.global
 }

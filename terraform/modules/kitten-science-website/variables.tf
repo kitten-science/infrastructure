@@ -7,3 +7,8 @@ variable "domain_name" {
   description = "The name of the Route53 domain to use."
   type        = string
 }
+
+variable "lambda_function_name" {
+  default = "redirect-releases"
+  type    = string
+}

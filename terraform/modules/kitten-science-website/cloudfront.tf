@@ -40,7 +40,7 @@ resource "aws_acm_certificate_validation" "this" {
 }
 
 data "aws_cloudfront_cache_policy" "uncached" {
-  name = "Managed-CachingDisabled"
+  name = "Managed-CachingOptimized"
 }
 data "aws_cloudfront_origin_request_policy" "cors" {
   name = "Managed-CORS-S3Origin"
@@ -75,6 +75,11 @@ resource "aws_cloudfront_distribution" "this" {
     response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
     target_origin_id           = aws_s3_bucket.this.bucket
 
+    lambda_function_association {
+      event_type = "origin-request"
+      lambda_arn = "${aws_lambda_function.redirect.arn}:${aws_lambda_function.redirect.version}"
+    }
+
     compress = true
 
     viewer_protocol_policy = "redirect-to-https"
@@ -82,6 +87,11 @@ resource "aws_cloudfront_distribution" "this" {
     default_ttl            = 0
     max_ttl                = 0
   }
+
+  #logging_config {
+  #  bucket = aws_s3_bucket.this.bucket_domain_name
+  #  prefix = "cloudfront-logs/"
+  #}
 
   restrictions {
     geo_restriction {
