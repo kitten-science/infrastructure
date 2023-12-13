@@ -6,13 +6,14 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.6.4 |
+| <a name="requirement_archive"></a> [archive](#requirement\_archive) | 2.4.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=5.29.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_archive"></a> [archive](#provider\_archive) | n/a |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.4.0 |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >=5.29.0 |
 | <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | >=5.29.0 |
 
@@ -46,7 +47,7 @@ No modules.
 | [aws_s3_bucket_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_website_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration) | resource |
-| [archive_file.redirect](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
+| [archive_file.redirect](https://registry.terraform.io/providers/hashicorp/archive/2.4.0/docs/data-sources/file) | data source |
 | [aws_cloudfront_cache_policy.uncached](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_cache_policy) | data source |
 | [aws_cloudfront_origin_request_policy.cors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_origin_request_policy) | data source |
 | [aws_iam_policy.aws_xray_write_only_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
