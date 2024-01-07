@@ -211,11 +211,7 @@ resource "aws_cloudfront_response_headers_policy" "this" {
     }
 
     access_control_allow_origins {
-      items = [
-        "https://kittensgame.com",
-        "http://127.0.0.1:8100",
-        "http://localhost:8100"
-      ]
+      items = ["*"]
     }
 
     origin_override = true
