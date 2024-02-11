@@ -20,7 +20,7 @@ jobs:
       - uses: hashicorp/setup-terraform@a1502cd9e758c50496cc9ac5308c4843bcd56d36 # v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
-          terraform_version: "1.7.2"
+          terraform_version: "1.7.3"
 
       - name: Format Checkout
         run: terraform fmt -check -diff -recursive terraform
