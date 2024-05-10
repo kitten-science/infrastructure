@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
 
-      - uses: hashicorp/setup-terraform@97f030cf6dc0b4f5e0da352c7bca9cca34579800 # v3
+      - uses: hashicorp/setup-terraform@651471c36a6092792c552e8b1bef71e592b462d8 # v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
           terraform_version: "1.8.2"
