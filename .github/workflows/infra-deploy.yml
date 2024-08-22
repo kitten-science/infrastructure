@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: production
+  group: infrastructure
 
 env:
   # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
@@ -22,6 +22,7 @@ jobs:
     environment:
       name: Production
       url: https://kitten-science.com
+    name: Deploy
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout

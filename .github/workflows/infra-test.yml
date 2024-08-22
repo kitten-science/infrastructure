@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: test
+  group: infrastructure
 
 env:
   # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
@@ -19,6 +19,7 @@ env:
 
 jobs:
   qa:
+    name: QA
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
