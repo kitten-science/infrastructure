@@ -4,7 +4,7 @@ terraform {
   required_providers {
     archive = {
       source  = "hashicorp/archive"
-      version = "2.4.2"
+      version = ">= 2.4.2"
     }
     aws = {
       configuration_aliases = [
@@ -12,7 +12,7 @@ terraform {
         aws.global
       ]
       source  = "hashicorp/aws"
-      version = "5.60.0"
+      version = ">= 5.60.0"
     }
   }
 }
