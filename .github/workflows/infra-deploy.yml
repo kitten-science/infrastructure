@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: infrastructure
+  group: production
 
 env:
   # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
