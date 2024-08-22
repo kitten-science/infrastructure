@@ -13,6 +13,10 @@ permissions:
 concurrency:
   group: production
 
+env:
+  # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
+  TERRAFORM_VERSION: "1.8.2"
+
 jobs:
   deploy:
     environment:
@@ -23,9 +27,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
-      - name: Environment Info
-        run: |
-          echo "ref: ${{ github.ref }}"
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
