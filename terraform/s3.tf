@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "this" {
-  bucket        = var.bucket_name
+  bucket        = local.bucket_name
   force_destroy = true
 
   provider = aws.global
@@ -63,4 +63,32 @@ resource "aws_s3_bucket_website_configuration" "this" {
   }
 
   provider = aws.global
+}
+
+resource "aws_cloudfront_response_headers_policy" "this" {
+  name = local.bucket_name
+
+  cors_config {
+    access_control_allow_credentials = false
+
+    access_control_allow_headers {
+      items = [
+        "Accept",
+        "Accept-Language",
+        "Content-Language",
+        "Content-Type",
+        "Range"
+      ]
+    }
+
+    access_control_allow_methods {
+      items = ["GET", "HEAD"]
+    }
+
+    access_control_allow_origins {
+      items = ["*"]
+    }
+
+    origin_override = true
+  }
 }

@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "maintainer_assume_role" {
   }
 }
 resource "aws_iam_role" "maintainer" {
-  name               = "${var.bucket_name}-maintainer"
+  name               = "${local.bucket_name}-maintainer"
   assume_role_policy = data.aws_iam_policy_document.maintainer_assume_role.json
 }
 
@@ -47,13 +47,13 @@ data "aws_iam_policy_document" "maintainer" {
     effect  = "Allow"
     actions = ["cloudfront:*"]
     resources = [
-      aws_cloudfront_distribution.schema.arn,
-      aws_cloudfront_distribution.this.arn
+      module.kitten_science_website.cloudfront_distribution_arn,
+      module.kitten_science_website_beta8.cloudfront_distribution_arn,
     ]
   }
 }
 resource "aws_iam_policy" "maintainer" {
-  name        = "${var.bucket_name}-maintainer"
+  name        = "${local.bucket_name}-maintainer"
   description = "Allows changing the Kitten Science website."
   policy      = data.aws_iam_policy_document.maintainer.json
 }

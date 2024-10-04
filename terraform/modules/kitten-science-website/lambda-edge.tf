@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "lambda_logging" {
 }
 
 resource "aws_iam_policy" "lambda_logging" {
-  name        = "lambda-redirect-logging"
+  name_prefix = "lambda-redirect-logging"
   path        = "/"
   description = "IAM policy for logging from a Lambda"
   policy      = data.aws_iam_policy_document.lambda_logging.json
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "aws_xray_write_only_access" {
 }
 
 resource "aws_iam_role" "redirect" {
-  name               = "lambda-${var.lambda_function_name}"
+  name_prefix        = "lambda-${var.lambda_function_name}"
   assume_role_policy = data.aws_iam_policy_document.redirect_assume.json
 
   provider = aws.global

@@ -1,6 +1,3 @@
-data "aws_route53_zone" "kitten_science" {
+data "aws_route53_zone" "domain" {
   name = var.domain_name
-}
-data "aws_route53_zone" "rm_rf" {
-  name = "rm-rf.link"
 }
