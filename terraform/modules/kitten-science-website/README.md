@@ -52,6 +52,7 @@ No modules.
 | <a name="input_comment"></a> [comment](#input\_comment) | The comment for the CloudFront distribution | `string` | n/a | yes |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The name of the Route53 domain to use. | `string` | n/a | yes |
 | <a name="input_lambda_function_name"></a> [lambda\_function\_name](#input\_lambda\_function\_name) | n/a | `string` | `"redirect-releases"` | no |
+| <a name="input_log_bucket_name"></a> [log\_bucket\_name](#input\_log\_bucket\_name) | n/a | `string` | n/a | yes |
 | <a name="input_origin_domain_name"></a> [origin\_domain\_name](#input\_origin\_domain\_name) | n/a | `string` | n/a | yes |
 | <a name="input_origin_id"></a> [origin\_id](#input\_origin\_id) | n/a | `string` | n/a | yes |
 | <a name="input_origin_path"></a> [origin\_path](#input\_origin\_path) | The path in the S3 bucket that should be served on the website. | `string` | `"/main"` | no |

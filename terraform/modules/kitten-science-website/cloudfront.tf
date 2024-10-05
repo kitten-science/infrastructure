@@ -35,13 +35,6 @@ resource "aws_acm_certificate_validation" "this" {
   provider = aws.global
 }
 
-data "aws_cloudfront_cache_policy" "uncached" {
-  name = "Managed-CachingOptimized"
-}
-data "aws_cloudfront_origin_request_policy" "cors" {
-  name = "Managed-CORS-S3Origin"
-}
-
 # Distribution
 resource "aws_cloudfront_distribution" "this" {
   depends_on = [aws_acm_certificate_validation.this]
@@ -90,6 +83,12 @@ resource "aws_cloudfront_distribution" "this" {
     min_ttl                = 0
     default_ttl            = 0
     max_ttl                = 0
+  }
+
+  logging_config {
+    include_cookies = false
+    bucket          = var.log_bucket_name
+    prefix          = local.fqdn
   }
 
   restrictions {

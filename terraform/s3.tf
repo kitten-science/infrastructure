@@ -4,9 +4,66 @@ resource "aws_s3_bucket" "this" {
 
   provider = aws.global
 }
+resource "aws_s3_bucket" "logs" {
+  bucket_prefix = "${local.bucket_name}-logs"
+
+  provider = aws.global
+}
+
+resource "aws_s3_bucket_acl" "logs" {
+  depends_on = [aws_s3_bucket_ownership_controls.logs]
+
+  bucket = aws_s3_bucket.logs.id
+
+  access_control_policy {
+    grant {
+      grantee {
+        id   = data.aws_cloudfront_log_delivery_canonical_user_id.current.id
+        type = "CanonicalUser"
+      }
+      permission = "FULL_CONTROL"
+    }
+    grant {
+      grantee {
+        type = "Group"
+        uri  = "http://acs.amazonaws.com/groups/s3/LogDelivery"
+      }
+      permission = "READ_ACP"
+    }
+    grant {
+      grantee {
+        type = "Group"
+        uri  = "http://acs.amazonaws.com/groups/s3/LogDelivery"
+      }
+      permission = "WRITE"
+    }
+    owner {
+      id = data.aws_canonical_user_id.current.id
+    }
+  }
+
+  provider = aws.global
+}
+
+resource "aws_s3_bucket_logging" "logs" {
+  bucket = aws_s3_bucket.this.id
+
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = "s3/"
+
+  provider = aws.global
+}
 
 resource "aws_s3_bucket_ownership_controls" "this" {
   bucket = aws_s3_bucket.this.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+
+  provider = aws.global
+}
+resource "aws_s3_bucket_ownership_controls" "logs" {
+  bucket = aws_s3_bucket.logs.id
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
