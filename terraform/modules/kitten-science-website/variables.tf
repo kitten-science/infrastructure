@@ -1,8 +1,3 @@
-variable "bucket_name" {
-  description = "The name of the S3 bucket to create for the website."
-  type        = string
-}
-
 variable "comment" {
   description = "The comment for the CloudFront distribution"
   type        = string
