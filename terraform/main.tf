@@ -1,6 +1,6 @@
 module "kitten_science_website" {
-  source          = "./modules/kitten-science-website"
-  bucket_name     = "kitten-science-us0"
+  source = "./modules/kitten-science-website"
+
   comment         = "Kitten Science Main"
   domain_name     = local.domain_name
   log_bucket_name = aws_s3_bucket.logs.bucket_regional_domain_name
@@ -15,8 +15,8 @@ module "kitten_science_website" {
   }
 }
 module "kitten_science_website_beta8" {
-  source               = "./modules/kitten-science-website"
-  bucket_name          = "kitten-science-us0"
+  source = "./modules/kitten-science-website"
+
   comment              = "Kitten Science v2.0.0-beta.8"
   domain_name          = local.domain_name
   lambda_function_name = "redirect-releases-beta8"
