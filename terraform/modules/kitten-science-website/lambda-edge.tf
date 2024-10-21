@@ -86,8 +86,16 @@ resource "aws_lambda_function" "redirect" {
   handler          = "redirect.handler"
   publish          = true
   role             = aws_iam_role.redirect.arn
-  runtime          = "nodejs18.x"
+  runtime          = "nodejs20.x"
   source_code_hash = data.archive_file.redirect.output_base64sha256
+
+  tracing_config {
+    mode = "Active"
+  }
+
+  // Replicated Lambda@Edge functions take ~30 minutes to be destroyed.
+  // It's best to just skip the destruction and clean leftovers manually, if needed.
+  skip_destroy = true
 
   provider = aws.global
 }
