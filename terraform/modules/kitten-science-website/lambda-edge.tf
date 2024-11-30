@@ -40,15 +40,21 @@ resource "aws_iam_policy" "lambda_logging" {
   path        = "/"
   description = "IAM policy for logging from a Lambda"
   policy      = data.aws_iam_policy_document.lambda_logging.json
+
+  provider = aws.global
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role       = aws_iam_role.redirect.name
   policy_arn = aws_iam_policy.lambda_logging.arn
+
+  provider = aws.global
 }
 resource "aws_iam_role_policy_attachment" "aws_xray_write_only_access" {
   role       = aws_iam_role.redirect.name
   policy_arn = data.aws_iam_policy.aws_xray_write_only_access.arn
+
+  provider = aws.global
 }
 
 resource "aws_iam_role" "redirect" {
@@ -75,9 +81,17 @@ resource "aws_lambda_permission" "edgelambda" {
   provider = aws.global
 }
 
+resource "aws_cloudwatch_log_group" "redirect" {
+  name              = "/aws/lambda/${var.lambda_function_name}"
+  retention_in_days = 14
+
+  provider = aws.global
+}
+
 resource "aws_lambda_function" "redirect" {
   depends_on = [
-    aws_iam_role_policy_attachment.lambda_logs
+    aws_iam_role_policy_attachment.lambda_logs,
+    aws_cloudwatch_log_group.redirect
   ]
 
   description      = "Redirects requests to release URLs"
@@ -86,8 +100,12 @@ resource "aws_lambda_function" "redirect" {
   handler          = "redirect.handler"
   publish          = true
   role             = aws_iam_role.redirect.arn
-  runtime          = "nodejs20.x"
+  runtime          = "nodejs22.x"
   source_code_hash = data.archive_file.redirect.output_base64sha256
+
+  logging_config {
+    log_format = "Text"
+  }
 
   tracing_config {
     mode = "Active"
