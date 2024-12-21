@@ -2,11 +2,10 @@
 module "kitten_science_website" {
   source = "./modules/kitten-science-website"
 
-  comment              = "Kitten Science Main"
-  domain_name          = local.domain_name
-  lambda_function_name = "redirect-releases-next"
-  log_bucket_name      = aws_s3_bucket.logs.bucket_regional_domain_name
-  site_name            = "next"
+  comment         = "Kitten Science Main"
+  domain_name     = local.domain_name
+  log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
+  site_name       = "next"
 
   origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
   origin_id                  = aws_s3_bucket.this.bucket
@@ -17,14 +16,30 @@ module "kitten_science_website" {
     aws.global = aws.global
   }
 }
-# Current stable release
+module "kitten_science_website_beta9" {
+  source = "./modules/kitten-science-website"
+
+  comment         = "Kitten Science v2.0.0-beta.9"
+  domain_name     = local.domain_name
+  log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
+  site_name       = "beta9"
+
+  origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
+  origin_id                  = aws_s3_bucket.this.bucket
+  origin_path                = "/v2.0.0-beta.9"
+  response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
+
+  providers = {
+    aws        = aws
+    aws.global = aws.global
+  }
+}
 module "kitten_science_website_beta8" {
   source = "./modules/kitten-science-website"
 
-  comment              = "Kitten Science v2.0.0-beta.8"
-  domain_name          = local.domain_name
-  lambda_function_name = "redirect-releases-beta8"
-  log_bucket_name      = aws_s3_bucket.logs.bucket_regional_domain_name
+  comment         = "Kitten Science v2.0.0-beta.8"
+  domain_name     = local.domain_name
+  log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
   #site_name            = "beta8"
 
   origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint

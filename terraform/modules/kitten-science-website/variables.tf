@@ -29,11 +29,6 @@ variable "site_name" {
   type     = string
 }
 
-variable "lambda_function_name" {
-  default = "redirect-releases"
-  type    = string
-}
-
 variable "log_bucket_name" {
   type = string
 }

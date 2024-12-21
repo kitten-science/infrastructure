@@ -72,11 +72,6 @@ resource "aws_cloudfront_distribution" "this" {
     response_headers_policy_id = var.response_headers_policy_id
     target_origin_id           = var.origin_id
 
-    lambda_function_association {
-      event_type = "origin-request"
-      lambda_arn = "${aws_lambda_function.redirect.arn}:${aws_lambda_function.redirect.version}"
-    }
-
     compress = true
 
     viewer_protocol_policy = "redirect-to-https"
