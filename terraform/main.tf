@@ -22,7 +22,7 @@ module "kitten_science_website_beta9" {
   comment         = "Kitten Science v2.0.0-beta.9"
   domain_name     = local.domain_name
   log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
-  site_name       = "beta9"
+  #site_name       = "beta9"
 
   origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
   origin_id                  = aws_s3_bucket.this.bucket
@@ -40,7 +40,7 @@ module "kitten_science_website_beta8" {
   comment         = "Kitten Science v2.0.0-beta.8"
   domain_name     = local.domain_name
   log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
-  #site_name            = "beta8"
+  site_name       = "beta8"
 
   origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
   origin_id                  = aws_s3_bucket.this.bucket

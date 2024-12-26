@@ -24,7 +24,8 @@ data "aws_iam_policy_document" "maintainer_assume_role" {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:kitten-science/kitten-scientists:ref:refs/heads/main"
+        "repo:kitten-science/kitten-scientists:ref:refs/heads/main",
+        "repo:kitten-science/kitten-scientists:ref:refs/tags/*"
       ]
     }
   }
