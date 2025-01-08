@@ -12,7 +12,7 @@ permissions:
 
 env:
   # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
-  TERRAFORM_VERSION: "1.10.3"
+  TERRAFORM_VERSION: "1.10.4"
 
 jobs:
   qa:
