@@ -7,8 +7,9 @@ module "kitten_science_website" {
   log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
   site_name       = "next"
 
-  origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
+  origin_domain_name         = aws_s3_bucket.this.bucket_regional_domain_name
   origin_id                  = aws_s3_bucket.this.bucket
+  origin_path                = "/main"
   response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
 
   providers = {
@@ -24,7 +25,7 @@ module "kitten_science_website_beta9" {
   log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
   #site_name       = "beta9"
 
-  origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
+  origin_domain_name         = aws_s3_bucket.this.bucket_regional_domain_name
   origin_id                  = aws_s3_bucket.this.bucket
   origin_path                = "/v2.0.0-beta.9"
   response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
@@ -42,7 +43,7 @@ module "kitten_science_website_beta8" {
   log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
   site_name       = "beta8"
 
-  origin_domain_name         = aws_s3_bucket_website_configuration.this.website_endpoint
+  origin_domain_name         = aws_s3_bucket.this.bucket_regional_domain_name
   origin_id                  = aws_s3_bucket.this.bucket
   origin_path                = "/v2.0.0-beta.8"
   response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id

@@ -74,50 +74,48 @@ resource "aws_s3_bucket_ownership_controls" "logs" {
 resource "aws_s3_bucket_public_access_block" "this" {
   bucket = aws_s3_bucket.this.id
 
-  block_public_acls       = true
+  block_public_acls       = false
   block_public_policy     = false
-  ignore_public_acls      = true
+  ignore_public_acls      = false
   restrict_public_buckets = false
 
   provider = aws.global
 }
 
-data "aws_iam_policy_document" "s3_public_read" {
+data "aws_iam_policy_document" "this" {
   statement {
+    actions   = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.this.arn]
+
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type = "AWS"
+      identifiers = [
+        module.kitten_science_website.cloudfront_origin_access_identity_arn,
+        module.kitten_science_website_beta8.cloudfront_origin_access_identity_arn,
+        module.kitten_science_website_beta9.cloudfront_origin_access_identity_arn
+      ]
     }
+  }
 
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
-    ]
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.this.arn}/*"]
 
-    resources = [
-      aws_s3_bucket.this.arn,
-      "${aws_s3_bucket.this.arn}/*",
-    ]
+    principals {
+      type = "AWS"
+      identifiers = [
+        module.kitten_science_website.cloudfront_origin_access_identity_arn,
+        module.kitten_science_website_beta8.cloudfront_origin_access_identity_arn,
+        module.kitten_science_website_beta9.cloudfront_origin_access_identity_arn
+      ]
+    }
   }
 
   provider = aws.global
 }
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
-  policy = data.aws_iam_policy_document.s3_public_read.json
-
-  provider = aws.global
-}
-
-resource "aws_s3_bucket_website_configuration" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  index_document {
-    suffix = "index.html"
-  }
-  error_document {
-    key = "error.html"
-  }
+  policy = data.aws_iam_policy_document.this.json
 
   provider = aws.global
 }
