@@ -17,13 +17,31 @@ module "kitten_science_website" {
     aws.global = aws.global
   }
 }
+module "kitten_science_website_beta10" {
+  source = "./modules/kitten-science-website"
+
+  comment         = "Kitten Science v2.0.0-beta.10"
+  domain_name     = local.domain_name
+  log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
+  #site_name       = "beta10"
+
+  origin_domain_name         = aws_s3_bucket.this.bucket_regional_domain_name
+  origin_id                  = aws_s3_bucket.this.bucket
+  origin_path                = "/v2.0.0-beta.10"
+  response_headers_policy_id = aws_cloudfront_response_headers_policy.this.id
+
+  providers = {
+    aws        = aws
+    aws.global = aws.global
+  }
+}
 module "kitten_science_website_beta9" {
   source = "./modules/kitten-science-website"
 
   comment         = "Kitten Science v2.0.0-beta.9"
   domain_name     = local.domain_name
   log_bucket_name = aws_s3_bucket.logs.bucket_domain_name
-  #site_name       = "beta9"
+  site_name       = "beta9"
 
   origin_domain_name         = aws_s3_bucket.this.bucket_regional_domain_name
   origin_id                  = aws_s3_bucket.this.bucket
