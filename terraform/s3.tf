@@ -92,7 +92,8 @@ data "aws_iam_policy_document" "this" {
       identifiers = [
         module.kitten_science_website.cloudfront_origin_access_identity_arn,
         module.kitten_science_website_beta8.cloudfront_origin_access_identity_arn,
-        module.kitten_science_website_beta9.cloudfront_origin_access_identity_arn
+        module.kitten_science_website_beta9.cloudfront_origin_access_identity_arn,
+        module.kitten_science_website_beta10.cloudfront_origin_access_identity_arn
       ]
     }
   }
@@ -106,7 +107,8 @@ data "aws_iam_policy_document" "this" {
       identifiers = [
         module.kitten_science_website.cloudfront_origin_access_identity_arn,
         module.kitten_science_website_beta8.cloudfront_origin_access_identity_arn,
-        module.kitten_science_website_beta9.cloudfront_origin_access_identity_arn
+        module.kitten_science_website_beta9.cloudfront_origin_access_identity_arn,
+        module.kitten_science_website_beta10.cloudfront_origin_access_identity_arn
       ]
     }
   }
