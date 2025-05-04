@@ -10,6 +10,22 @@ resource "aws_s3_bucket" "logs" {
   provider = aws.global
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "logs" {
+  bucket                                 = aws_s3_bucket.logs
+  transition_default_minimum_object_size = "all_storage_classes_128K"
+  rule {
+    filter {}
+    id = "expire-history"
+    expiration {
+      days = 30
+    }
+    noncurrent_version_expiration {
+      noncurrent_days = 30
+    }
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_acl" "logs" {
   depends_on = [aws_s3_bucket_ownership_controls.logs]
 
