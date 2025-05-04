@@ -123,4 +123,9 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   provider = aws.global
+
+  tags = {
+    Name        = var.site_name
+    "site-name" = var.site_name
+  }
 }

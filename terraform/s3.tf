@@ -11,19 +11,23 @@ resource "aws_s3_bucket" "logs" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "logs" {
-  bucket                                 = aws_s3_bucket.logs
+  bucket                                 = aws_s3_bucket.logs.id
   transition_default_minimum_object_size = "all_storage_classes_128K"
   rule {
-    filter {}
     id = "expire-history"
     expiration {
       days = 30
+    }
+    filter {
+      prefix = ""
     }
     noncurrent_version_expiration {
       noncurrent_days = 30
     }
     status = "Enabled"
   }
+
+  provider = aws.global
 }
 
 resource "aws_s3_bucket_acl" "logs" {
