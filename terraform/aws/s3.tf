@@ -1,11 +1,12 @@
 resource "aws_s3_bucket" "this" {
-  bucket        = local.bucket_name
+  bucket        = var.bucket_name
   force_destroy = true
 
   provider = aws.global
 }
 resource "aws_s3_bucket" "logs" {
-  bucket_prefix = "${local.bucket_name}-logs"
+  bucket_prefix = "${var.bucket_name}-logs"
+  force_destroy = true
 
   provider = aws.global
 }
@@ -143,7 +144,7 @@ resource "aws_s3_bucket_policy" "this" {
 }
 
 resource "aws_cloudfront_response_headers_policy" "this" {
-  name = local.bucket_name
+  name = var.bucket_name
 
   cors_config {
     access_control_allow_credentials = false

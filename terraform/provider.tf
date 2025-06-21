@@ -14,3 +14,8 @@ provider "aws" {
     tags = local.tags
   }
 }
+
+provider "github" {
+  owner = local.organization
+  # token  = "..."       # GITHUB_TOKEN
+}

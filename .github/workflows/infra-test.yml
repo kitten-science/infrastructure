@@ -29,10 +29,8 @@ jobs:
       - name: Format Checkout
         run: terraform fmt -check -diff -recursive terraform
 
-      - name: Run tflint
-        run: |
-          podman run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint --init
-          podman run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint --recursive
+      - name: Lint
+        run: make lint
 
       - name: Environment Info
         run: |

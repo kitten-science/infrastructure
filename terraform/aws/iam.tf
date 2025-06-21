@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "maintainer_assume_role" {
   }
 }
 resource "aws_iam_role" "maintainer" {
-  name               = "${local.bucket_name}-maintainer"
+  name               = "${var.bucket_name}-maintainer"
   assume_role_policy = data.aws_iam_policy_document.maintainer_assume_role.json
 }
 
@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "maintainer" {
   }
 }
 resource "aws_iam_policy" "maintainer" {
-  name        = "${local.bucket_name}-maintainer"
+  name        = "${var.bucket_name}-maintainer"
   description = "Allows changing the Kitten Science website."
   policy      = data.aws_iam_policy_document.maintainer.json
 }

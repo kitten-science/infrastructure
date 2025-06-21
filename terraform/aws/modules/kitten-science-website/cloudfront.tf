@@ -53,7 +53,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   # We don't really need the WAF, because we're only serving static content.
   #web_acl_id          = "arn:aws:wafv2:us-east-1:022327457572:global/webacl/CreatedByCloudFront-04e49c94-b220-44e4-9240-3da00e9602aa/d0878d05-aca4-4611-820d-26bbf1fd3ede"
-  retain_on_delete    = true
+  retain_on_delete    = false
   wait_for_deployment = false
 
   #origin {
