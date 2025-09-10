@@ -1,4 +1,5 @@
 module "scm" {
+  count  = 0
   source = "./github"
 
   providers = {
