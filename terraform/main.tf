@@ -1,12 +1,3 @@
-module "scm" {
-  count  = 0
-  source = "./github"
-
-  providers = {
-    github = github
-  }
-}
-
 module "web" {
   source = "./aws"
 

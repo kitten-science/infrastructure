@@ -7,8 +7,7 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.2 |
 | <a name="requirement_archive"></a> [archive](#requirement\_archive) | 2.7.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.98.0 |
-| <a name="requirement_github"></a> [github](#requirement\_github) | 6.6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 6.13.0 |
 
 ## Providers
 
@@ -18,7 +17,6 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_scm"></a> [scm](#module\_scm) | ./github | n/a |
 | <a name="module_web"></a> [web](#module\_web) | ./aws | n/a |
 
 ## Resources
