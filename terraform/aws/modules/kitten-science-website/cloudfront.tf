@@ -105,12 +105,6 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
-  logging_config {
-    include_cookies = false
-    bucket          = var.log_bucket_name
-    prefix          = local.fqdn
-  }
-
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -128,5 +122,42 @@ resource "aws_cloudfront_distribution" "this" {
   tags = {
     Name        = var.site_name
     "site-name" = var.site_name
+  }
+}
+
+resource "aws_cloudwatch_log_delivery_source" "this" {
+  region = "us-east-1"
+
+  name         = "site-logs"
+  log_type     = "ACCESS_LOGS"
+  resource_arn = aws_cloudfront_distribution.this.arn
+}
+
+resource "aws_cloudwatch_log_delivery_destination" "this" {
+  region = "us-east-1"
+
+  name          = "s3-destination"
+  output_format = "w3c"
+
+  delivery_destination_configuration {
+    destination_resource_arn = var.log_bucket_arn
+  }
+}
+
+resource "aws_cloudwatch_log_delivery" "this" {
+  region = "us-east-1"
+
+  delivery_source_name     = aws_cloudwatch_log_delivery_source.this.name
+  delivery_destination_arn = aws_cloudwatch_log_delivery_destination.this.arn
+
+  s3_delivery_configuration {
+    suffix_path = "/{DistributionId}/{yyyy}/{MM}"
+  }
+
+  lifecycle {
+    replace_triggered_by = [
+      aws_cloudwatch_log_delivery_source.this,
+      aws_cloudwatch_log_delivery_destination.this,
+    ]
   }
 }

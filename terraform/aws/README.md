@@ -7,24 +7,20 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.2 |
 | <a name="requirement_archive"></a> [archive](#requirement\_archive) | >=2.7.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=5.98.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.98.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >=5.98.0 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | >=5.98.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.98.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | >= 5.98.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_kitten_science_website"></a> [kitten\_science\_website](#module\_kitten\_science\_website) | ./modules/kitten-science-website | n/a |
-| <a name="module_kitten_science_website_beta10"></a> [kitten\_science\_website\_beta10](#module\_kitten\_science\_website\_beta10) | ./modules/kitten-science-website | n/a |
 | <a name="module_kitten_science_website_beta11"></a> [kitten\_science\_website\_beta11](#module\_kitten\_science\_website\_beta11) | ./modules/kitten-science-website | n/a |
-| <a name="module_kitten_science_website_beta8"></a> [kitten\_science\_website\_beta8](#module\_kitten\_science\_website\_beta8) | ./modules/kitten-science-website | n/a |
-| <a name="module_kitten_science_website_beta9"></a> [kitten\_science\_website\_beta9](#module\_kitten\_science\_website\_beta9) | ./modules/kitten-science-website | n/a |
 
 ## Resources
 

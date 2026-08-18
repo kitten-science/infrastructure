@@ -9,8 +9,9 @@ variable "domain_name" {
 }
 
 variable "origin_path" {
-  default     = "/main"
+  default     = null
   description = "The path in the S3 bucket that should be served on the website."
+  nullable    = true
   type        = string
 }
 variable "origin_domain_name" {
@@ -29,6 +30,9 @@ variable "site_name" {
   type     = string
 }
 
+variable "log_bucket_arn" {
+  type = string
+}
 variable "log_bucket_name" {
   type = string
 }

@@ -1,5 +1,5 @@
 apply:
-	tofu -chdir=terraform apply
+	tofu -chdir=terraform apply -auto-approve
 
 init:
 	tofu -chdir=terraform init

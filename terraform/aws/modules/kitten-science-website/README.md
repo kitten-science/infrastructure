@@ -28,6 +28,9 @@ No modules.
 | [aws_acm_certificate_validation.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
 | [aws_cloudfront_distribution.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_cloudfront_origin_access_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
+| [aws_cloudwatch_log_delivery.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_delivery) | resource |
+| [aws_cloudwatch_log_delivery_destination.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_delivery_destination) | resource |
+| [aws_cloudwatch_log_delivery_source.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_delivery_source) | resource |
 | [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.validation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_cloudfront_cache_policy.uncached](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_cache_policy) | data source |
@@ -40,10 +43,11 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_comment"></a> [comment](#input\_comment) | The comment for the CloudFront distribution | `string` | n/a | yes |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The name of the Route53 domain to use. | `string` | n/a | yes |
+| <a name="input_log_bucket_arn"></a> [log\_bucket\_arn](#input\_log\_bucket\_arn) | n/a | `string` | n/a | yes |
 | <a name="input_log_bucket_name"></a> [log\_bucket\_name](#input\_log\_bucket\_name) | n/a | `string` | n/a | yes |
 | <a name="input_origin_domain_name"></a> [origin\_domain\_name](#input\_origin\_domain\_name) | n/a | `string` | n/a | yes |
 | <a name="input_origin_id"></a> [origin\_id](#input\_origin\_id) | n/a | `string` | n/a | yes |
-| <a name="input_origin_path"></a> [origin\_path](#input\_origin\_path) | The path in the S3 bucket that should be served on the website. | `string` | `"/main"` | no |
+| <a name="input_origin_path"></a> [origin\_path](#input\_origin\_path) | The path in the S3 bucket that should be served on the website. | `string` | `null` | no |
 | <a name="input_response_headers_policy_id"></a> [response\_headers\_policy\_id](#input\_response\_headers\_policy\_id) | n/a | `string` | n/a | yes |
 | <a name="input_site_name"></a> [site\_name](#input\_site\_name) | n/a | `string` | `null` | no |
 

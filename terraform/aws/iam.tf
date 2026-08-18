@@ -48,8 +48,7 @@ data "aws_iam_policy_document" "maintainer" {
     effect  = "Allow"
     actions = ["cloudfront:*"]
     resources = [
-      module.kitten_science_website.cloudfront_distribution_arn,
-      module.kitten_science_website_beta8.cloudfront_distribution_arn,
+      module.kitten_science_website_beta11.cloudfront_distribution_arn,
     ]
   }
 }
